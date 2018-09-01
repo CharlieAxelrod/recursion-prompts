@@ -7,16 +7,23 @@
 // Example: 5! = 5 x 4 x 3 x 2 x 1 = 120
 // factorial(5); // 120
 var factorial = function(n) {
+	if (n < 0) return null;
+	else if (n === 0) return 1;
+	else return (n * factorial(n - 1));
 };
 
 // 2. Compute the sum of an array of integers.
 // sum([1,2,3,4,5,6]); // 21
 var sum = function(array) {
+	if (array.length == 0) return 0;
+	else return sum(array.slice(1)) + array[0];
 };
 
 // 3. Sum all numbers in an array containing nested arrays.
 // arraySum([1,[2,3],[[4]],5]); // 15
 var arraySum = function(array) {
+	/*if (array.length == 0) return 0;
+	return arraySum(sum(array.slice(1))) + sum(array[0]);*/
 };
 
 // 4. Check if a number is even.
@@ -27,11 +34,16 @@ var isEven = function(n) {
 // sumBelow(10); // 45
 // sumBelow(7); // 21
 var sumBelow = function(n) {
+	if (n === 0) return 0;
+	else if (n < 0) return ((n + 1) + sumBelow(n + 1));
+	else return ((n - 1) + sumBelow(n - 1));
 };
 
 // 6. Get the integers within a range (x, y).
 // range(2,9); // [3,4,5,6,7,8]
 var range = function(x, y) {
+	/*if (x === (y - 1)) return (y - 1);
+	else return [x + 1, range(x + 1, y)];*/
 };
 
 // 7. Compute the exponent of a number.
@@ -40,6 +52,9 @@ var range = function(x, y) {
 // exponent(4,3); // 64
 // https://www.khanacademy.org/computing/computer-science/algorithms/recursive-algorithms/a/computing-powers-of-a-number
 var exponent = function(base, exp) {
+	if (exp === 0) return 1;
+	else if (exp < 0) return (1 / base) * exponent(base, exp + 1);
+	else return base * exponent(base, exp - 1);
 };
 
 // 8. Determine if a number is a power of two.
@@ -51,6 +66,8 @@ var powerOfTwo = function(n) {
 
 // 9. Write a function that reverses a string.
 var reverse = function(string) {
+	if (string == '') return '';
+	else return reverse(string.substr(1)) + string[0];
 };
 
 // 10. Write a function that determines if a string is a palindrome.
@@ -68,6 +85,9 @@ var modulo = function(x, y) {
 // 12. Write a function that multiplies two numbers without using the * operator or
 // Math methods.
 var multiply = function(x, y) {
+	if (y === 0) return 0;
+	else if (y < 0) return -x + multiply(x, y + 1);
+	else return x + multiply(x, y - 1);
 };
 
 // 13. Write a function that divides two numbers without using the / operator or
