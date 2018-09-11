@@ -48,6 +48,9 @@ var sumBelow = function(n) {
 // 6. Get the integers within a range (x, y).
 // range(2,9); // [3,4,5,6,7,8]
 var range = function(x, y) {
+	if (x === y || x + 1 === y || x - 1 === y) return [];
+	else if (x > y) return [x - 1].concat(range(x - 1, y));
+	else return [x + 1].concat(range(x + 1, y));
 };
 
 // 7. Compute the exponent of a number.
@@ -148,18 +151,22 @@ var compareStr = function(str1, str2) {
 // 16. Write a function that accepts a string and creates an array where each letter
 // occupies an index of the array.
 var createArray = function(str) {
-
+	if (str.length === 0) return [];
+	else return [str.charAt(0)].concat(createArray(str.substr(1)));
 };
 
 // 17. Reverse the order of an array
 var reverseArr = function(array) {
-
+	if (array.length === 0) return [];
+	else return [array[array.length - 1]].concat(reverseArr(array.slice(0, -1)));
 };
 
 // 18. Create a new array with a given value and length.
 // buildList(0,5) // [0,0,0,0,0]
 // buildList(7,3) // [7,7,7]
 var buildList = function(value, length) {
+	if (length === 0) return [];
+	else return [value].concat(buildList(value, length - 1));
 };
 
 // 19. Implement FizzBuzz. Given integer n, return an array of the string representations of 1 to n.
@@ -174,11 +181,17 @@ var fizzBuzz = function(n) {
 // countOccurrence([2,7,4,4,1,4], 4) // 3
 // countOccurrence([2,'banana',4,4,1,'banana'], 'banana') // 2
 var countOccurrence = function(array, value) {
+	if (array.length === 0) return 0;
+	else if (array[0] === value) return 1 + countOccurrence(array.slice(1), value);
+	else if (Object.is(array[0], value) == true) return 1 + countOccurrence(array.slice(1), value);
+	else return countOccurrence(array.slice(1), value);
 };
 
 // 21. Write a recursive version of map.
 // rMap([1,2,3], timesTwo); // [2,4,6]
 var rMap = function(array, callback) {
+	if (array.length === 0) return [];
+	else return [callback(array[0])].concat(rMap(array.slice(1), callback));
 };
 
 // 22. Write a function that counts the number of times a key occurs in an object.
@@ -220,11 +233,15 @@ var nthFibo = function(n) {
 // var words = ['i', 'am', 'learning', 'recursion'];
 // capitalizedWords(words); // ['I', 'AM', 'LEARNING', 'RECURSION']
 var capitalizeWords = function(array) {
+	if (array.length === 0) return [];
+	else return [array[0].toUpperCase()].concat(capitalizeWords(array.slice(1)));
 };
 
 // 28. Given an array of strings, capitalize the first letter of each index.
 // capitalizeFirst(['car','poop','banana']); // ['Car','Poop','Banana']
 var capitalizeFirst = function(array) {
+	if (array.length === 0) return [];
+	else return [array[0].charAt(0).toUpperCase() + array[0].substr(1)].concat(capitalizeFirst(array.slice(1)));
 };
 
 // 29. Return the sum of all even numbers in an object containing nested objects.
@@ -255,6 +272,9 @@ var letterTally = function(str, obj) {
 // compress([1,2,2,3,4,4,5,5,5]) // [1,2,3,4,5]
 // compress([1,2,2,3,4,4,2,5,5,5,4,4]) // [1,2,3,4,2,5,4]
 var compress = function(list) {
+	if (list.length === 0) return [];
+	else if (list[0] === list[1]) return compress(list.slice(1));
+	else return [list[0]].concat(compress(list.slice(1)));
 };
 
 // 33. Augument every element in a list with a new value where each element is an array
@@ -267,6 +287,9 @@ var augmentElements = function(array, aug) {
 // minimizeZeroes([2,0,0,0,1,4]) // [2,0,1,4]
 // minimizeZeroes([2,0,0,0,1,0,0,4]) // [2,0,1,0,4]
 var minimizeZeroes = function(array) {
+	if (array.length === 0) return [];
+	else if (array[0] === 0 && array[0] === array[1]) return minimizeZeroes(array.slice(1));
+	else return [array[0]].concat(minimizeZeroes(array.slice(1)));
 };
 
 // 35. Alternate the numbers in an array between positive and negative regardless of
@@ -294,6 +317,15 @@ var tagCount = function(tag, node) {
 // binarySearch(array, 5) // 5
 // https://www.khanacademy.org/computing/computer-science/algorithms/binary-search/a/binary-search
 var binarySearch = function(array, target, min, max) {
+	var tArray = array.slice();
+	if (min === undefined) min = 0;
+	if (max === undefined) max = array.length - 1;
+
+	var guess = Math.floor(((max - min) / 2) + min);
+	if (max === min && tArray[guess] !== target) return null;
+	else if (tArray[guess] === target) return guess;
+	else if (tArray[guess] < target) return binarySearch(tArray, target, guess + 1, max);
+	else return binarySearch(tArray, target, min, guess);
 };
 
 // 39. Write a merge sort function.
