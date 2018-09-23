@@ -259,6 +259,9 @@ var nestedEvenSum = function(obj) {
 // 30. Flatten an array containing nested arrays.
 // flatten([1,[2],[3,[[4]]],5]); // [1,2,3,4,5]
 var flatten = function(array) {
+	/*if (array.length === 0) return [];
+	else if (Array.isArray(array[0])) return array[0][0].concat(flatten(array[0][0])
+	else return [array[0]].concat(flatten(array.slice(1)));*/
 };
 
 // 31. Given a string, return an object containing tallies of each letter.
@@ -322,10 +325,10 @@ var binarySearch = function(array, target, min, max) {
 	if (max === undefined) max = array.length - 1;
 
 	var guess = Math.floor(((max - min) / 2) + min);
-	if (max === min && tArray[guess] !== target) return null;
+	if (max <= min && tArray[guess] !== target) return null;
 	else if (tArray[guess] === target) return guess;
 	else if (tArray[guess] < target) return binarySearch(tArray, target, guess + 1, max);
-	else return binarySearch(tArray, target, min, guess);
+	else return binarySearch(tArray, target, min, guess - 1);
 };
 
 // 39. Write a merge sort function.
