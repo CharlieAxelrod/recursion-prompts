@@ -175,6 +175,11 @@ var buildList = function(value, length) {
 // For numbers which are multiples of both three and five, output “FizzBuzz” instead of the number.
 // fizzBuzz(5) // ['1','2','Fizz','4','Buzz']
 var fizzBuzz = function(n) {
+	if (n === 0) return [];
+	else if (n % 3 === 0 && n % 5 === 0) return fizzBuzz(n - 1).concat(['FizzBuzz']);
+	else if (n % 3 === 0) return fizzBuzz(n - 1).concat(['Fizz']);
+	else if (n % 5 === 0) return fizzBuzz(n - 1).concat(['Buzz']);
+	else return fizzBuzz(n - 1).concat(['' + n]);
 };
 
 // 20. Count the occurence of a value in a list.
@@ -267,6 +272,17 @@ var flatten = function(array) {
 // 31. Given a string, return an object containing tallies of each letter.
 // letterTally('potato'); // {p:1, o:2, t:2, a:1}
 var letterTally = function(str, obj) {
+	/*if (str.length === 0) return obj;
+	else if (obj.hasOwnProperty(str.charAt(0))) return letterTally(str.slice(1), Object.defineProperty(obj, str.charAt(0), {
+		value: obj[str.charAt(0)] + 1;
+		writable: true;
+		enumerable: true;
+	}));
+	else return letterTally(str.slice(1), Object.defineProperty(obj, str.charAt(0), {
+		value: 1;
+		writable: true;
+		enumerable: true;
+	}));*/
 };
 
 // 32. Eliminate consecutive duplicates in a list. If the list contains repeated
@@ -306,6 +322,7 @@ var alternateSign = function(array) {
 // Assume all numbers are single digits (less than 10).
 // numToText("I have 5 dogs and 6 ponies"); // "I have five dogs and six ponies"
 var numToText = function(str) {
+
 };
 
 
