@@ -22,9 +22,12 @@ var sum = function(array) {
 // 3. Sum all numbers in an array containing nested arrays.
 // arraySum([1,[2,3],[[4]],5]); // 15
 var arraySum = function(array) {
-	/*if (typeof array[0] == "object") return arraySum(array[0][1]) + arraySum(array.slice(1));
+	if (Array.isArray(array[0])) {
+		if (array.length > 1) return arraySum(array[0]) + arraySum(array.slice(1));
+		else return arraySum(array[0]);
+	}
 	else if (array.length === 0) return 0;
-	else return array[0] + arraySum(array.slice(1));*/
+	else return array[0] + arraySum(array.slice(1));
 };
 
 // 4. Check if a number is even.
@@ -132,11 +135,24 @@ var divide = function(x, y) {
 
 // 14. Find the greatest common divisor (gcd) of two positive numbers. The GCD of two
 // integers is the greatest integer that divides both x and y with no remainder.
-// gcd(4,36); // 4
+// gcd(8,36); // 4
+// gcd(7,2); // 1
+// gcd(8,12); // 4
+// gcd(6,8); // 2
 // http://www.cse.wustl.edu/~kjg/cse131/Notes/Recursion/recursion.html
 // https://www.khanacademy.org/computing/computer-science/cryptography/modarithmetic/a/the-euclidean-algorithm
 var gcd = function(x, y) {
-};
+	/*if (x <= 0 || y <= 0) return null;
+	else if (x < y) {
+		if (y - x < x) return y - x;
+		else return gcd(x, y - x);
+	} else if (x > y) {
+		if (x - y < y) return x - y;
+		else return gcd(x - y, y);
+	} else {
+		return x;
+	}
+};*/
 
 // 15. Write a function that compares each character of two strings and returns true if
 // both are identical.
@@ -264,9 +280,12 @@ var nestedEvenSum = function(obj) {
 // 30. Flatten an array containing nested arrays.
 // flatten([1,[2],[3,[[4]]],5]); // [1,2,3,4,5]
 var flatten = function(array) {
-	/*if (array.length === 0) return [];
-	else if (Array.isArray(array[0])) return array[0][0].concat(flatten(array[0][0])
-	else return [array[0]].concat(flatten(array.slice(1)));*/
+	if (Array.isArray(array[0])) {
+		if (array.length > 1) return flatten(array[0]).concat(flatten(array.slice(1)));
+		else return flatten(array[0]);
+	}
+	else if (array.length === 0) return [];
+	else return [array[0]].concat(flatten(array.slice(1)))
 };
 
 // 31. Given a string, return an object containing tallies of each letter.
